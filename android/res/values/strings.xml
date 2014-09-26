@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">CurtAndRay</string>
+    <string name="app_name">Curt and Ray</string>
+    <string name="quit">Are you sure you want to quit?</string>
 
 </resources>
