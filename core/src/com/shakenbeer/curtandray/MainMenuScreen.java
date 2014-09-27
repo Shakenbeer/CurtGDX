@@ -7,16 +7,15 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 public class MainMenuScreen implements Screen {
 
-    Rectangle play, howTo, sound, speed, mode;
-    Vector3 touchPos;
+    private final Rectangle play, howTo, sound, speed, mode;
+    private Vector3 touchPos;
 
     final CurtAndRay game;
-    OrthographicCamera camera;
+    private final OrthographicCamera camera;
 
     BitmapFont font;
 
@@ -46,7 +45,7 @@ public class MainMenuScreen implements Screen {
                 if (play.contains(touchPos.x, touchPos.y)) {
 
                 } else if (howTo.contains(touchPos.x, touchPos.y)) {
-                    game.setScreen(new HowToScreen1());
+                    game.setScreen(new HowToScreen(game));
                 } else if (sound.contains(touchPos.x, touchPos.y)) {
                     Settings.soundEnabled = !Settings.soundEnabled;
                 } else if (speed.contains(touchPos.x, touchPos.y)) {
