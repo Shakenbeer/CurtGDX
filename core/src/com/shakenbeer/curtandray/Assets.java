@@ -108,6 +108,16 @@ public class Assets {
                 IOUtils.closeQuietly(in);
             }
         }
+        
+        soundClick = Gdx.audio.newSound(Gdx.files.internal("click.ogg"));
+        soundHideMine = Gdx.audio.newSound(Gdx.files.internal("hide_mine.ogg"));
+        soundSetupFlag = Gdx.audio.newSound(Gdx.files.internal("setup_flag.ogg"));
+        soundSetupMine = Gdx.audio.newSound(Gdx.files.internal("setup_mine.ogg"));
+        soundWin = Gdx.audio.newSound(Gdx.files.internal("win.ogg"));
+        soundLose = Gdx.audio.newSound(Gdx.files.internal("lose.ogg"));
+        soundWoosh = Gdx.audio.newSound(Gdx.files.internal("woosh.ogg"));
+        soundPresent = Gdx.audio.newSound(Gdx.files.internal("nishtyak.ogg"));
+        
     }
 
 }
