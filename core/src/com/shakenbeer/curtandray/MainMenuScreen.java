@@ -19,8 +19,8 @@ public class MainMenuScreen implements Screen {
 
     BitmapFont font;
 
-    public MainMenuScreen(final CurtAndRay game) {
-        this.game = game;
+    public MainMenuScreen(CurtAndRay curtAndRay) {
+        this.game = curtAndRay;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 768, 1184);
@@ -43,7 +43,7 @@ public class MainMenuScreen implements Screen {
                 camera.unproject(touchPos);
                 boolean result = true;
                 if (play.contains(touchPos.x, touchPos.y)) {
-
+                    game.setScreen(new LevelsScreen(game));
                 } else if (howTo.contains(touchPos.x, touchPos.y)) {
                     game.setScreen(new HowToScreen(game));
                 } else if (sound.contains(touchPos.x, touchPos.y)) {

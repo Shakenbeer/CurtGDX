@@ -17,8 +17,8 @@ public class HowToScreen implements Screen {
     private Texture howTo;
     private final Rectangle right;
 
-    public HowToScreen(final CurtAndRay game) {
-        this.game = game;
+    public HowToScreen(CurtAndRay curtAndRay) {
+        this.game = curtAndRay;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 768, 1184);
         
@@ -79,7 +79,6 @@ public class HowToScreen implements Screen {
         }
         
         game.batch.end();
-
     }
 
     @Override
