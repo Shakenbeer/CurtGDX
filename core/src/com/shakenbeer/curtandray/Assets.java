@@ -1,18 +1,18 @@
 package com.shakenbeer.curtandray;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-
-import org.apache.commons.io.IOUtils;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 
 public class Assets {
+
+    public static AssetManager manager = new AssetManager();
 
     public static Texture[] backgrounds = new Texture[4];
 
@@ -59,65 +59,123 @@ public class Assets {
 
     public static void load() {
 
-        backgrounds[0] = new Texture(Gdx.files.internal("background0.png"));
-        backgrounds[1] = new Texture(Gdx.files.internal("background1.png"));
-        backgrounds[2] = new Texture(Gdx.files.internal("background2.png"));
-        backgrounds[3] = new Texture(Gdx.files.internal("background3.png"));
+        backgrounds[0] = manager.get("background0.png");
+        backgrounds[1] = manager.get("background1.png");
+        backgrounds[2] = manager.get("background2.png");
+        backgrounds[3] = manager.get("background3.png");
 
-        buttonArrowLeft = new Texture(Gdx.files.internal("button_arrow_left.png"));
-        buttonArrowRight = new Texture(Gdx.files.internal("button_arrow_right.png"));
-        curt = new Texture(Gdx.files.internal("curt.png"));
-        digits = new Texture(Gdx.files.internal("digits.png"));
-        flag = new Texture(Gdx.files.internal("flag.png"));
-        buttonHowTo = new Texture(Gdx.files.internal("button_how_to.png"));
-        screenHowTo1 = new Texture(Gdx.files.internal("screen_how_to_1.png"));
-        screenHowTo2 = new Texture(Gdx.files.internal("screen_how_to_2.png"));
-        screenHowTo3 = new Texture(Gdx.files.internal("screen_how_to_3.png"));
-        screenLevel = new Texture(Gdx.files.internal("screen_level.png"));
-        logo = new Texture(Gdx.files.internal("logo.png"));
-        mine = new Texture(Gdx.files.internal("mine.png"));
-        nextLevel = new Texture(Gdx.files.internal("next_level.png"));
-        screenPause = new Texture(Gdx.files.internal("screen_pause.png"));
-        buttonPlay = new Texture(Gdx.files.internal("button_play.png"));
-        ray = new Texture(Gdx.files.internal("ray.png"));
-        buttonSoundOn = new Texture(Gdx.files.internal("button_sound_on.png"));
-        buttonSoundOff = new Texture(Gdx.files.internal("button_sound_off.png"));
-        buttonStart = new Texture(Gdx.files.internal("button_start.png"));
-        buttonClose = new Texture(Gdx.files.internal("button_close.png"));
-        buttonPause = new Texture(Gdx.files.internal("button_pause.png"));
-        levelNum = new Texture(Gdx.files.internal("level_num.png"));
-        levelNumClosed = new Texture(Gdx.files.internal("level_num_closed.png"));
-        levelFailed = new Texture(Gdx.files.internal("failed.png"));
-        buttonHardModeOff = new Texture(Gdx.files.internal("button_hard_mode_off.png"));
-        buttonHardModeOn = new Texture(Gdx.files.internal("button_hard_mode_on.png"));
-        present = new Texture(Gdx.files.internal("present.png"));
-        buttonSpeed = new Texture(Gdx.files.internal("speed.png"));
+        buttonArrowLeft = manager.get("button_arrow_left.png");
+        buttonArrowRight = manager.get("button_arrow_right.png");
+        curt = manager.get("curt.png");
+        digits = manager.get("digits.png");
+        flag = manager.get("flag.png");
+        buttonHowTo = manager.get("button_how_to.png");
+        screenHowTo1 = manager.get("screen_how_to_1.png");
+        screenHowTo2 = manager.get("screen_how_to_2.png");
+        screenHowTo3 = manager.get("screen_how_to_3.png");
+        screenLevel = manager.get("screen_level.png");
+        logo = manager.get("logo.png");
+        mine = manager.get("mine.png");
+        nextLevel = manager.get("next_level.png");
+        screenPause = manager.get("screen_pause.png");
+        buttonPlay = manager.get("button_play.png");
+        ray = manager.get("ray.png");
+        buttonSoundOn = manager.get("button_sound_on.png");
+        buttonSoundOff = manager.get("button_sound_off.png");
+        buttonStart = manager.get("button_start.png");
+        buttonClose = manager.get("button_close.png");
+        buttonPause = manager.get("button_pause.png");
+        levelNum = manager.get("level_num.png");
+        levelNumClosed = manager.get("level_num_closed.png");
+        levelFailed = manager.get("failed.png");
+        buttonHardModeOff = manager.get("button_hard_mode_off.png");
+        buttonHardModeOn = manager.get("button_hard_mode_on.png");
+        present = manager.get("present.png");
+        buttonSpeed = manager.get("speed.png");
 
+        soundClick = manager.get("click.ogg");
+        soundHideMine = manager.get("hide_mine.ogg");
+        soundSetupFlag = manager.get("setup_flag.ogg");
+        soundSetupMine = manager.get("setup_mine.ogg");
+        soundWin = manager.get("win.ogg");
+        soundLose = manager.get("lose.ogg");
+        soundWoosh = manager.get("woosh.ogg");
+        soundPresent = manager.get("nishtyak.ogg");
+        
         FileHandle handle = Gdx.files.internal("levels");
-
-        InputStream in = null;
+        levels = new Array<String>();
+        BufferedReader in = null;
         try {
-            in = handle.read();
-            List<String> list = IOUtils.readLines(in);
-            String[] buff = new String[list.size()];
-            levels = new Array<String>(list.toArray(buff));
+            in = handle.reader(1024);
+            String line;
+            while ((line = in.readLine()) != null) {
+                levels.add(line);
+            }
         } catch (IOException e) {
             throw new RuntimeException("Couldn't load levels from asset");
         } finally {
             if (in != null) {
-                IOUtils.closeQuietly(in);
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    //
+                }
             }
         }
-        
-        soundClick = Gdx.audio.newSound(Gdx.files.internal("click.ogg"));
-        soundHideMine = Gdx.audio.newSound(Gdx.files.internal("hide_mine.ogg"));
-        soundSetupFlag = Gdx.audio.newSound(Gdx.files.internal("setup_flag.ogg"));
-        soundSetupMine = Gdx.audio.newSound(Gdx.files.internal("setup_mine.ogg"));
-        soundWin = Gdx.audio.newSound(Gdx.files.internal("win.ogg"));
-        soundLose = Gdx.audio.newSound(Gdx.files.internal("lose.ogg"));
-        soundWoosh = Gdx.audio.newSound(Gdx.files.internal("woosh.ogg"));
-        soundPresent = Gdx.audio.newSound(Gdx.files.internal("nishtyak.ogg"));
-        
+
+    }
+
+    public static void queueLoading() {
+        manager.load("background0.png", Texture.class);
+        manager.load("background1.png", Texture.class);
+        manager.load("background2.png", Texture.class);
+        manager.load("background3.png", Texture.class);
+
+        manager.load("button_arrow_left.png", Texture.class);
+        manager.load("button_arrow_right.png", Texture.class);
+        manager.load("curt.png", Texture.class);
+        manager.load("digits.png", Texture.class);
+        manager.load("flag.png", Texture.class);
+        manager.load("button_how_to.png", Texture.class);
+        manager.load("screen_how_to_1.png", Texture.class);
+        manager.load("screen_how_to_2.png", Texture.class);
+        manager.load("screen_how_to_3.png", Texture.class);
+        manager.load("screen_level.png", Texture.class);
+        manager.load("logo.png", Texture.class);
+        manager.load("mine.png", Texture.class);
+        manager.load("next_level.png", Texture.class);
+        manager.load("screen_pause.png", Texture.class);
+        manager.load("button_play.png", Texture.class);
+        manager.load("ray.png", Texture.class);
+        manager.load("button_sound_on.png", Texture.class);
+        manager.load("button_sound_off.png", Texture.class);
+        manager.load("button_start.png", Texture.class);
+        manager.load("button_close.png", Texture.class);
+        manager.load("button_pause.png", Texture.class);
+        manager.load("level_num.png", Texture.class);
+        manager.load("level_num_closed.png", Texture.class);
+        manager.load("failed.png", Texture.class);
+        manager.load("button_hard_mode_off.png", Texture.class);
+        manager.load("button_hard_mode_on.png", Texture.class);
+        manager.load("present.png", Texture.class);
+        manager.load("speed.png", Texture.class);
+
+        manager.load("click.ogg", Sound.class);
+        manager.load("hide_mine.ogg", Sound.class);
+        manager.load("setup_flag.ogg", Sound.class);
+        manager.load("setup_mine.ogg", Sound.class);
+        manager.load("win.ogg", Sound.class);
+        manager.load("lose.ogg", Sound.class);
+        manager.load("woosh.ogg", Sound.class);
+        manager.load("nishtyak.ogg", Sound.class);
+    }
+
+    public static boolean update() {
+        return manager.update();
+    }
+
+    public static float getProgress() {
+        return manager.getProgress();
     }
 
 }

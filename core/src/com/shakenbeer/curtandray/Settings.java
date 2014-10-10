@@ -4,10 +4,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.io.IOUtils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -42,7 +38,7 @@ public class Settings {
             try {
                 if (in != null)
                     in.close();
-            } catch (IOException e) {
+            } catch (Throwable e) {
             }
         }
     }
@@ -53,19 +49,18 @@ public class Settings {
             FileHandle filehandle = Gdx.files.external(SETTINGS_FILE);
             
             out = new BufferedWriter(new OutputStreamWriter(filehandle.write(false, 1024)));
-            List<String> settings = new ArrayList<String>();
-            settings.add(Boolean.toString(soundEnabled));
-            settings.add(Boolean.toString(hardMode));
-            settings.add(Integer.toString(gameSpeed));
-            settings.add(Integer.toString(currentLevel));
-            settings.add(Integer.toString(presentsCollected));
-            IOUtils.writeLines(settings, null, out);
-        } catch (IOException e) {
+            out.write(Boolean.toString(soundEnabled) + "\n");
+            out.write(Boolean.toString(hardMode)+ "\n");
+            out.write(Integer.toString(gameSpeed)+ "\n");
+            out.write(Integer.toString(currentLevel)+ "\n");
+            out.write(Integer.toString(presentsCollected)+ "\n");
+            out.flush();
+        } catch (Throwable e) {
         } finally {
             try {
                 if (out != null)
                     out.close();
-            } catch (IOException e) {
+            } catch (Throwable e) {
             }
         }
     }

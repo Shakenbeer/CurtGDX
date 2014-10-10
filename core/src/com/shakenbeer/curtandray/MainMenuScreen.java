@@ -25,6 +25,7 @@ public class MainMenuScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 768, 1184);
 
+        Assets.load();
         font = new BitmapFont(Gdx.files.internal("KG10kReasons.fnt"));
 
         play = new Rectangle(134, 384, 500, 200);
