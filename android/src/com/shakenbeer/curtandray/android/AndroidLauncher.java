@@ -50,6 +50,8 @@ public class AndroidLauncher extends AndroidApplication {
         layout.addView(adView, adParams);
         
         setContentView(layout);
+        
+//        initialize(new CurtAndRay(), config);
     }
 
     @Override
@@ -60,7 +62,7 @@ public class AndroidLauncher extends AndroidApplication {
 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            AndroidLauncher.this.finish();
+                            moveTaskToBack(true);;
                         }
 
                     }).setNegativeButton(android.R.string.no, null).show();

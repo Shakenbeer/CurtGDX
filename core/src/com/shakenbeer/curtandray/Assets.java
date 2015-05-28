@@ -58,7 +58,7 @@ public class Assets {
     public static Array<String> levels;
 
     public static void load() {
-
+        
         backgrounds[0] = manager.get("background0.png");
         backgrounds[1] = manager.get("background1.png");
         backgrounds[2] = manager.get("background2.png");
@@ -176,6 +176,10 @@ public class Assets {
 
     public static float getProgress() {
         return manager.getProgress();
+    }
+
+    public static void clear() {
+        manager.clear();
     }
 
 }

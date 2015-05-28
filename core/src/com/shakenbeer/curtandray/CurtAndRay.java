@@ -1,6 +1,7 @@
 package com.shakenbeer.curtandray;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class CurtAndRay extends Game {
@@ -8,8 +9,9 @@ public class CurtAndRay extends Game {
 
     @Override
     public void create() {
+       
         batch = new SpriteBatch();
-        setScreen(new SplashScreen(this));
+        setScreen(new SplashScreen(this));       
         Assets.queueLoading();
         Settings.load();
     }
@@ -21,5 +23,6 @@ public class CurtAndRay extends Game {
 
     public void dispose() {
         batch.dispose();
+        Assets.clear();
     }
 }
