@@ -27,7 +27,7 @@ public class AndroidLauncher extends AndroidApplication {
         config.useAccelerometer = false;
         config.useCompass = false;
 
-        RelativeLayout layout = new RelativeLayout(this);
+/*        RelativeLayout layout = new RelativeLayout(this);
         
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -49,9 +49,9 @@ public class AndroidLauncher extends AndroidApplication {
         
         layout.addView(adView, adParams);
         
-        setContentView(layout);
+        setContentView(layout);*/
         
-//        initialize(new CurtAndRay(), config);
+        initialize(new CurtAndRay(), config);
     }
 
     @Override
